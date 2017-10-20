@@ -1,4 +1,4 @@
-package io.phoenix.app.twosplash;
+package io.phoenix.app.splasho;
 
 import org.junit.Test;
 

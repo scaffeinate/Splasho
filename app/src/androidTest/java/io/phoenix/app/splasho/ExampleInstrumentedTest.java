@@ -1,4 +1,4 @@
-package io.phoenix.app.twosplash;
+package io.phoenix.app.splasho;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

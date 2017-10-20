@@ -1,4 +1,4 @@
-package io.phoenix.app.twosplash;
+package io.phoenix.app.splasho;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
