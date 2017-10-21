@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -17,6 +18,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import io.phoenix.app.splasho.collections.CollectionsContainerFragment;
+import io.phoenix.app.splasho.photos.PhotosContainerFragment;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String SELECTED_MENU_ITEM = "selected_menu_item";
@@ -27,12 +31,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle mDrawerToggle;
     private TextView mToolbarTitle;
 
+    private FragmentManager mFragmentManager;
+
     private int selectedItem = R.id.action_photos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mFragmentManager = getSupportFragmentManager();
 
         mToolbar = findViewById(R.id.toolbar);
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -98,10 +106,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (menuItem.getItemId()) {
             case R.id.action_photos:
-                Toast.makeText(this, "Photos", Toast.LENGTH_SHORT).show();
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.main_content, PhotosContainerFragment.newInstance())
+                        .commit();
                 break;
             case R.id.action_collections:
-                Toast.makeText(this, "Collections", Toast.LENGTH_SHORT).show();
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.main_content, CollectionsContainerFragment.newIntance())
+                        .commit();
                 break;
             case R.id.action_settings:
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
