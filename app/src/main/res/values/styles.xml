@@ -18,4 +18,12 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="RoundedButtonStyle">
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:background">@drawable/selector_btn_primary</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/btn_font_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

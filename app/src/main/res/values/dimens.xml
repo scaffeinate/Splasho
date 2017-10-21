@@ -4,4 +4,6 @@
     <dimen name="drawer_header_height">208dp</dimen>
     <dimen name="iv_user_profile_size">65dp</dimen>
     <dimen name="iv_user_profile_padding">15dp</dimen>
+
+    <dimen name="btn_font_size">14sp</dimen>
 </resources>
