@@ -31,7 +31,7 @@ public class PhotosContainerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_container, container, false);
+        View view = inflater.inflate(R.layout.fragment_grid_container, container, false);
 
         mViewPager = view.findViewById(R.id.view_pager);
         mTabLayout = view.findViewById(R.id.tab_layout);

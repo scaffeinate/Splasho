@@ -21,7 +21,7 @@ public class CollectionsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_collections, container, false);
+        View view = inflater.inflate(R.layout.fragment_grid, container, false);
         return view;
     }
 }

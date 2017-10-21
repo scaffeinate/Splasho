@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Button Dimensions -->
+    <dimen name="btn_font_size">14sp</dimen>
+    <dimen name="btn_padding_left">30dp</dimen>
+    <dimen name="btn_padding_right">30dp</dimen>
+    <dimen name="btn_radius">60dp</dimen>
+
+    <!-- Nav Drawer Dimensions -->
     <dimen name="nav_drawer_width">285dp</dimen>
     <dimen name="drawer_header_height">165dp</dimen>
     <dimen name="iv_user_profile_size">65dp</dimen>
     <dimen name="iv_user_profile_padding">15dp</dimen>
 
+    <!-- Tab Dimensions -->
     <dimen name="tab_padding">5dp</dimen>
 
-    <dimen name="btn_font_size">14sp</dimen>
+    <!-- ProgressBar Dimension -->
+    <dimen name="pb_size">42dp</dimen>
 </resources>
