@@ -20,8 +20,8 @@ public class CollectionsContainerFragment extends Fragment {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
 
-    private static String[] tabs = new String[]{"All", "Featured", "Curated"};
-
+    private static String[] mTabs = new String[]{"All", "Featured", "Curated"};
+    private CollectionsViewPagerAdapter mAdapter;
 
     public static Fragment newIntance() {
         CollectionsContainerFragment collectionsContainerFragment = new CollectionsContainerFragment();
@@ -36,6 +36,9 @@ public class CollectionsContainerFragment extends Fragment {
         mViewPager = view.findViewById(R.id.view_pager);
         mTabLayout = view.findViewById(R.id.tab_layout);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        mAdapter = new CollectionsViewPagerAdapter(getChildFragmentManager(), mTabs);
+        mViewPager.setAdapter(mAdapter);
 
         return view;
     }

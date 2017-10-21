@@ -29,8 +29,9 @@
     </style>
 
     <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
-        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:fontFamily">@font/lato</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="textAllCaps">true</item>
     </style>

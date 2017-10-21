@@ -1,4 +1,4 @@
-package io.phoenix.app.splasho;
+package io.phoenix.app.splasho.login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +7,9 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import io.phoenix.app.splasho.MainActivity;
+import io.phoenix.app.splasho.R;
 
 /**
  * Created by sudharti on 10/21/17.

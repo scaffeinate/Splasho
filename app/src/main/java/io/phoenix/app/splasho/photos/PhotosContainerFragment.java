@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import io.phoenix.app.splasho.R;
-import io.phoenix.app.splasho.views.CustomTabLayout;
 
 /**
  * Created by sudharti on 10/21/17.
@@ -20,7 +19,7 @@ public class PhotosContainerFragment extends Fragment {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
-    private static String[] tabs = new String[]{"Latest", "Popular", "Curated"};
+    private static String[] mTabs = new String[]{"Latest", "Popular", "Curated"};
 
     private PhotosViewPagerAdapter mAdapter;
 
@@ -44,7 +43,7 @@ public class PhotosContainerFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mAdapter = new PhotosViewPagerAdapter(getChildFragmentManager(), tabs);
+        mAdapter = new PhotosViewPagerAdapter(getChildFragmentManager(), mTabs);
         mViewPager.setAdapter(mAdapter);
     }
 }
