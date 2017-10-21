@@ -22,7 +22,9 @@
             android:layout_height="@dimen/iv_user_profile_size"
             android:layout_centerInParent="true"
             android:background="@drawable/shape_user_profile"
-            android:src="@drawable/ic_circle_outline_white_24dp" />
+            android:padding="@dimen/iv_user_profile_padding"
+            android:src="@drawable/ic_camera_black_24dp"
+            android:tint="@android:color/white" />
 
         <TextView
             android:id="@+id/tv_user_name"
