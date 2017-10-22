@@ -37,7 +37,11 @@ public class CollectionsRepository implements CollectionsDataSource {
                 mApiClient.loadAllCollections(page, new Callback<List<Collection>>() {
                     @Override
                     public void onResponse(Call<List<Collection>> call, Response<List<Collection>> response) {
-                        callback.onCollectionsLoaded(response.body());
+                        if (response.body() != null) {
+                            callback.onCollectionsLoaded(response.body());
+                        } else {
+                            callback.onDataNotAvailable(response.errorBody().toString());
+                        }
                     }
 
                     @Override

@@ -34,7 +34,11 @@ public class PhotosRepository implements PhotosDataSource {
         mApiClient.loadPhotos(page, orderBy, new Callback<List<Photo>>() {
             @Override
             public void onResponse(Call<List<Photo>> call, Response<List<Photo>> response) {
-                callback.onPhotosLoaded(response.body());
+                if (response.body() != null) {
+                    callback.onPhotosLoaded(response.body());
+                } else {
+                    callback.onDataNotAvailable(response.errorBody().toString());
+                }
             }
 
             @Override

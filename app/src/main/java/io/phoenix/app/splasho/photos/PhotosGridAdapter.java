@@ -10,7 +10,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import io.phoenix.app.splasho.R;
 import io.phoenix.app.splasho.models.Photo;
@@ -22,7 +21,6 @@ import io.phoenix.app.splasho.models.Photo;
 public class PhotosGridAdapter extends RecyclerView.Adapter<PhotosGridAdapter.ViewHolder> {
 
     private List<Photo> mPhotos;
-    private Random mRandom = new Random();
 
     public PhotosGridAdapter() {
         this.mPhotos = new ArrayList<>();
@@ -48,10 +46,6 @@ public class PhotosGridAdapter extends RecyclerView.Adapter<PhotosGridAdapter.Vi
     public void setPhotos(List<Photo> photos) {
         this.mPhotos = photos;
         notifyDataSetChanged();
-    }
-
-    protected int getRandomIntInRange(int max, int min) {
-        return mRandom.nextInt((max - min) + min) + min;
     }
 
     final class ViewHolder extends RecyclerView.ViewHolder {
