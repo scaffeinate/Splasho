@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.phoenix.app.splasho.BuildConfig;
 import io.phoenix.app.splasho.UnsplashAPI;
+import io.phoenix.app.splasho.models.Collection;
 import io.phoenix.app.splasho.models.Photo;
 import io.phoenix.app.splasho.photos.PhotosContract;
 import okhttp3.HttpUrl;
@@ -46,7 +47,19 @@ public class UnsplashApiClient {
     }
 
     public void loadCuratedPhotos(int page, @PhotosContract.OrderBy String orderBy, Callback<List<Photo>> apiCallback) {
-        mApi.loadPhotos(UNSPLASH_APP_ID, page, orderBy).enqueue(apiCallback);
+        mApi.loadCuratedPhotos(UNSPLASH_APP_ID, page, orderBy).enqueue(apiCallback);
+    }
+
+    public void loadAllCollections(int page, Callback<List<Collection>> apiCallback) {
+        mApi.loadAllCollections(UNSPLASH_APP_ID, page).enqueue(apiCallback);
+    }
+
+    public void loadFeaturedCollections(int page, Callback<List<Collection>> apiCallback) {
+        mApi.loadFeaturedCollections(UNSPLASH_APP_ID, page).enqueue(apiCallback);
+    }
+
+    public void loadCuratedCollections(int page, Callback<List<Collection>> apiCallback) {
+        mApi.loadCuratedCollections(UNSPLASH_APP_ID, page).enqueue(apiCallback);
     }
 
     private HttpUrl buildBaseURL() {

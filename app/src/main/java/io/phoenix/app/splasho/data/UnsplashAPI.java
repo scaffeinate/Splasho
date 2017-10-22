@@ -2,6 +2,7 @@ package io.phoenix.app.splasho;
 
 import java.util.List;
 
+import io.phoenix.app.splasho.models.Collection;
 import io.phoenix.app.splasho.models.Photo;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -17,4 +18,13 @@ public interface UnsplashAPI {
 
     @GET("/photos/curated/")
     Call<List<Photo>> loadCuratedPhotos(@Query("client_id") String clientId, @Query("page") int page, @Query("order_by") String orderBy);
+
+    @GET("/collections")
+    Call<List<Collection>> loadAllCollections(@Query("client_id") String clientId, @Query("page") int page);
+
+    @GET("/collections/featured")
+    Call<List<Collection>> loadFeaturedCollections(@Query("client_id") String clientId, @Query("page") int page);
+
+    @GET("/collections/curated")
+    Call<List<Collection>> loadCuratedCollections(@Query("client_id") String clientId, @Query("page") int page);
 }
