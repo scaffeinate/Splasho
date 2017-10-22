@@ -8,6 +8,7 @@ import io.phoenix.app.splasho.models.Collection;
 import io.phoenix.app.splasho.models.Photo;
 import io.phoenix.app.splasho.photos.PhotosContract;
 import okhttp3.HttpUrl;
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -17,7 +18,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class UnsplashApiClient {
-    private final static String TAG = UnsplashApiClient.class.getSimpleName();
+
+    private final static int PER_PAGE = 35;
     private final static String UNSPLASH_APP_ID = BuildConfig.UNSPLASH_APP_ID;
     private final static String SCHEME = "https";
     private final static String BASE_PATH = "api.unsplash.com";
@@ -45,23 +47,30 @@ public class UnsplashApiClient {
     }
 
     public void loadPhotos(int page, @PhotosContract.OrderBy String orderBy, Callback<List<Photo>> apiCallback) {
-        mApi.loadPhotos(UNSPLASH_APP_ID, page, orderBy).enqueue(apiCallback);
+        call = mApi.loadPhotos(UNSPLASH_APP_ID, page, PER_PAGE, orderBy);
+        call.enqueue(apiCallback);
     }
 
     public void loadCuratedPhotos(int page, @PhotosContract.OrderBy String orderBy, Callback<List<Photo>> apiCallback) {
-        mApi.loadCuratedPhotos(UNSPLASH_APP_ID, page, orderBy).enqueue(apiCallback);
+        call = mApi.loadCuratedPhotos(UNSPLASH_APP_ID, page, PER_PAGE, orderBy);
+        call.enqueue(apiCallback);
     }
 
     public void loadAllCollections(int page, Callback<List<Collection>> apiCallback) {
-        mApi.loadAllCollections(UNSPLASH_APP_ID, page).enqueue(apiCallback);
+        call = mApi.loadAllCollections(UNSPLASH_APP_ID, page, PER_PAGE);
+        call.enqueue(apiCallback);
     }
 
     public void loadFeaturedCollections(int page, Callback<List<Collection>> apiCallback) {
-        mApi.loadFeaturedCollections(UNSPLASH_APP_ID, page).enqueue(apiCallback);
+        call = mApi.loadFeaturedCollections(UNSPLASH_APP_ID, page, PER_PAGE);
+        call.enqueue(apiCallback);
     }
 
     public void loadCuratedCollections(int page, Callback<List<Collection>> apiCallback) {
-        mApi.loadCuratedCollections(UNSPLASH_APP_ID, page).enqueue(apiCallback);
+        call = mApi.loadCuratedCollections(UNSPLASH_APP_ID, page, PER_PAGE);
+        call.enqueue(apiCallback);
+    }
+
     public void cancel() {
         if (call != null && !call.isCanceled()) {
             call.cancel();

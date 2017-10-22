@@ -1,4 +1,4 @@
-package io.phoenix.app.splasho;
+package io.phoenix.app.splasho.data;
 
 import java.util.List;
 
@@ -14,17 +14,17 @@ import retrofit2.http.Query;
 
 public interface UnsplashAPI {
     @GET("/photos")
-    Call<List<Photo>> loadPhotos(@Query("client_id") String clientId, @Query("page") int page, @Query("order_by") String orderBy);
+    Call<List<Photo>> loadPhotos(@Query("client_id") String clientId, @Query("page") int page, @Query("per_page") int perPage, @Query("order_by") String orderBy);
 
     @GET("/photos/curated/")
-    Call<List<Photo>> loadCuratedPhotos(@Query("client_id") String clientId, @Query("page") int page, @Query("order_by") String orderBy);
+    Call<List<Photo>> loadCuratedPhotos(@Query("client_id") String clientId, @Query("page") int page, @Query("per_page") int perPage, @Query("order_by") String orderBy);
 
     @GET("/collections")
-    Call<List<Collection>> loadAllCollections(@Query("client_id") String clientId, @Query("page") int page);
+    Call<List<Collection>> loadAllCollections(@Query("client_id") String clientId, @Query("page") int page, @Query("per_page") int perPage);
 
     @GET("/collections/featured")
-    Call<List<Collection>> loadFeaturedCollections(@Query("client_id") String clientId, @Query("page") int page);
+    Call<List<Collection>> loadFeaturedCollections(@Query("client_id") String clientId, @Query("page") int page, @Query("per_page") int perPage);
 
     @GET("/collections/curated")
-    Call<List<Collection>> loadCuratedCollections(@Query("client_id") String clientId, @Query("page") int page);
+    Call<List<Collection>> loadCuratedCollections(@Query("client_id") String clientId, @Query("page") int page, @Query("per_page") int perPage);
 }
