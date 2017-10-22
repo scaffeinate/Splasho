@@ -18,8 +18,12 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import io.phoenix.app.splasho.collections.CollectionsContainerFragment;
-import io.phoenix.app.splasho.photos.PhotosContainerFragment;
+import java.util.Arrays;
+
+import io.phoenix.app.splasho.container.Tab;
+
+import static io.phoenix.app.splasho.container.ViewPagerContainerFragment.Screen;
+import static io.phoenix.app.splasho.container.ViewPagerContainerFragment.newInstance;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -34,6 +38,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentManager mFragmentManager;
 
     private int selectedItem = R.id.action_photos;
+
+    private Tab[] photosTabs = new Tab[]{
+            new Tab("Latest", "latest"),
+            new Tab("Popular", "popular"),
+            new Tab("Oldest", "oldest")
+    };
+
+    private Tab[] collectionsTabs = new Tab[]{
+            new Tab("All", "all"),
+            new Tab("Featured", "featured"),
+            new Tab("Curated", "curated")
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,12 +123,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()) {
             case R.id.action_photos:
                 mFragmentManager.beginTransaction()
-                        .replace(R.id.main_content, PhotosContainerFragment.newInstance())
+                        .replace(R.id.main_content, newInstance(Screen.PHOTOS, photosTabs))
+                        .commit();
+                break;
+            case R.id.action_curated_photos:
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.main_content, newInstance(Screen.CURATED_PHOTOS, photosTabs))
                         .commit();
                 break;
             case R.id.action_collections:
                 mFragmentManager.beginTransaction()
-                        .replace(R.id.main_content, CollectionsContainerFragment.newIntance())
+                        .replace(R.id.main_content, newInstance(Screen.COLLECTIONS, collectionsTabs))
                         .commit();
                 break;
             case R.id.action_settings:

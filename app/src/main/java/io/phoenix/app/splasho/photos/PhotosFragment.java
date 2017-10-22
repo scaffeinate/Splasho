@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import io.phoenix.app.splasho.R;
+import io.phoenix.app.splasho.container.Tab;
 import io.phoenix.app.splasho.data.photos.PhotosRepository;
 import io.phoenix.app.splasho.models.Photo;
 import io.phoenix.app.splasho.util.HTTPUtils;
@@ -24,6 +25,8 @@ import io.phoenix.app.splasho.util.HTTPUtils;
 
 public class PhotosFragment extends Fragment implements PhotosContract.View {
 
+    private static final String TAB = "tab";
+
     private Context mContext;
     private PhotosRepository mRepository;
     private PhotosPresenter mPresenter;
@@ -32,8 +35,16 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     private ProgressBar mProgressBar;
     private TextView mErrorMessage;
 
-    public static PhotosFragment newInstance() {
-        return new PhotosFragment();
+    private Tab mTab;
+
+    public static PhotosFragment newInstance(Tab tab) {
+        PhotosFragment fragment = new PhotosFragment();
+
+        Bundle args = new Bundle();
+        args.putParcelable(TAB, tab);
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     @Override
@@ -49,6 +60,8 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_grid, container, false);
 
+        mTab = getArguments().getParcelable(TAB);
+
         mProgressBar = view.findViewById(R.id.pb_loading_indicator);
         mRecyclerView = view.findViewById(R.id.rv_grid);
         mErrorMessage = view.findViewById(R.id.tv_error_message_display);
@@ -61,7 +74,7 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
         super.onResume();
         if (HTTPUtils.isNetworkEnabled(mContext)) {
             showProgressBar();
-            mPresenter.loadPhotos(1, PhotosContract.OrderBy.LATEST);
+            mPresenter.loadPhotos(1, (mTab != null) ? mTab.getKey() : PhotosContract.OrderBy.LATEST);
         } else {
             showErrorMessage();
             mErrorMessage.setText(mContext.getResources().getString(R.string.unable_to_connect_error_message));

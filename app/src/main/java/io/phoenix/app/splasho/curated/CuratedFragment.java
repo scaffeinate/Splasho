@@ -1,4 +1,4 @@
-package io.phoenix.app.splasho.collections;
+package io.phoenix.app.splasho.curated;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,17 +11,17 @@ import io.phoenix.app.splasho.R;
 import io.phoenix.app.splasho.container.Tab;
 
 /**
- * Created by sudharti on 10/21/17.
+ * Created by sudharti on 10/22/17.
  */
 
-public class CollectionsFragment extends Fragment {
+public class CuratedFragment extends Fragment {
 
     private static final String TAB = "tab";
 
     private Tab mTab;
 
-    public static CollectionsFragment newInstance(Tab tab) {
-        CollectionsFragment fragment = new CollectionsFragment();
+    public static CuratedFragment newInstance(Tab tab) {
+        CuratedFragment fragment = new CuratedFragment();
 
         Bundle args = new Bundle();
         args.putParcelable(TAB, tab);
