@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,8 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
     private TextView mErrorMessage;
+
+    private PhotosGridAdapter mAdapter;
 
     private Tab mTab;
 
@@ -66,6 +69,13 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
         mRecyclerView = view.findViewById(R.id.rv_grid);
         mErrorMessage = view.findViewById(R.id.tv_error_message_display);
 
+        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, 2);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
+
+        mAdapter = new PhotosGridAdapter();
+        mRecyclerView.setAdapter(mAdapter);
+
         return view;
     }
 
@@ -84,6 +94,7 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     @Override
     public void onPhotosLoaded(List<Photo> photos) {
         showRecyclerView();
+        mAdapter.setPhotos(photos);
     }
 
     @Override
