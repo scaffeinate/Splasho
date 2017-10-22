@@ -2,6 +2,8 @@ package io.phoenix.app.splasho.data.photos;
 
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import io.phoenix.app.splasho.data.Cancellable;
 import io.phoenix.app.splasho.data.UnsplashApiClient;
 import io.phoenix.app.splasho.models.Photo;
@@ -13,7 +15,7 @@ import retrofit2.Response;
  * Created by sudharti on 10/21/17.
  */
 
-public class PhotosRepository implements PhotosDatasource, Cancellable {
+public class PhotosRepository implements PhotosDataSource, Cancellable {
 
     private static PhotosRepository mRepository;
     private UnsplashApiClient mApiClient;
@@ -35,7 +37,7 @@ public class PhotosRepository implements PhotosDatasource, Cancellable {
         mApiClient.loadPhotos(page, orderBy, new Callback<List<Photo>>() {
             @Override
             public void onResponse(Call<List<Photo>> call, Response<List<Photo>> response) {
-                if (response.body() != null) {
+                if (response.code() == HttpsURLConnection.HTTP_OK && response.body() != null) {
                     callback.onPhotosLoaded(response.body());
                 } else {
                     callback.onDataNotAvailable(response.errorBody().toString());
@@ -54,7 +56,11 @@ public class PhotosRepository implements PhotosDatasource, Cancellable {
         mApiClient.loadCuratedPhotos(page, orderBy, new Callback<List<Photo>>() {
             @Override
             public void onResponse(Call<List<Photo>> call, Response<List<Photo>> response) {
-                callback.onPhotosLoaded(response.body());
+                if (response.code() == HttpsURLConnection.HTTP_OK && response.body() != null) {
+                    callback.onPhotosLoaded(response.body());
+                } else {
+                    callback.onDataNotAvailable(response.errorBody().toString());
+                }
             }
 
             @Override

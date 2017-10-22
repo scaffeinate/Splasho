@@ -2,6 +2,8 @@ package io.phoenix.app.splasho.data.collections;
 
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import io.phoenix.app.splasho.data.Cancellable;
 import io.phoenix.app.splasho.data.UnsplashApiClient;
 import io.phoenix.app.splasho.models.Collection;
@@ -15,7 +17,7 @@ import static io.phoenix.app.splasho.collections.CollectionsContract.Type;
  * Created by sudharti on 10/22/17.
  */
 
-public class CollectionsRepository implements CollectionsDatasource, Cancellable {
+public class CollectionsRepository implements CollectionsDataSource, Cancellable {
 
     private static UnsplashApiClient mApiClient;
     private static CollectionsRepository mRepository;
@@ -38,7 +40,7 @@ public class CollectionsRepository implements CollectionsDatasource, Cancellable
                 mApiClient.loadAllCollections(page, new Callback<List<Collection>>() {
                     @Override
                     public void onResponse(Call<List<Collection>> call, Response<List<Collection>> response) {
-                        if (response.body() != null) {
+                        if (response.code() == HttpsURLConnection.HTTP_OK && response.body() != null) {
                             callback.onCollectionsLoaded(response.body());
                         } else {
                             callback.onDataNotAvailable(response.errorBody().toString());
@@ -55,7 +57,11 @@ public class CollectionsRepository implements CollectionsDatasource, Cancellable
                 mApiClient.loadFeaturedCollections(page, new Callback<List<Collection>>() {
                     @Override
                     public void onResponse(Call<List<Collection>> call, Response<List<Collection>> response) {
-                        callback.onCollectionsLoaded(response.body());
+                        if (response.code() == HttpsURLConnection.HTTP_OK && response.body() != null) {
+                            callback.onCollectionsLoaded(response.body());
+                        } else {
+                            callback.onDataNotAvailable(response.errorBody().toString());
+                        }
                     }
 
                     @Override
@@ -68,7 +74,11 @@ public class CollectionsRepository implements CollectionsDatasource, Cancellable
                 mApiClient.loadCuratedCollections(page, new Callback<List<Collection>>() {
                     @Override
                     public void onResponse(Call<List<Collection>> call, Response<List<Collection>> response) {
-                        callback.onCollectionsLoaded(response.body());
+                        if (response.code() == HttpsURLConnection.HTTP_OK && response.body() != null) {
+                            callback.onCollectionsLoaded(response.body());
+                        } else {
+                            callback.onDataNotAvailable(response.errorBody().toString());
+                        }
                     }
 
                     @Override

@@ -11,7 +11,7 @@ import static io.phoenix.app.splasho.photos.PhotosContract.OrderBy;
  * Created by sudharti on 10/21/17.
  */
 
-public interface PhotosCancellable extends Cancellable {
+public interface PhotosDataSource {
 
     void loadPhotos(int page, @OrderBy String orderBy, LoadPhotosCallback callback);
 
