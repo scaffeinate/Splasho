@@ -10,12 +10,13 @@
 
     <TextView
         android:id="@+id/tv_error_message_display"
-        style="@style/Base.TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:fontFamily="@font/lato"
+        android:textSize="16sp"
         android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
         android:visibility="invisible" />
 
     <ProgressBar
@@ -23,6 +24,6 @@
         android:layout_width="@dimen/pb_size"
         android:layout_height="@dimen/pb_size"
         android:layout_centerInParent="true"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 
 </RelativeLayout>
