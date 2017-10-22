@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,7 @@ public class CollectionsFragment extends Fragment implements CollectionsContract
     private ProgressBar mProgressBar;
     private TextView mErrorMessage;
 
+    private CollectionsGridAdapter mAdapter;
     private Tab mTab;
 
     public static CollectionsFragment newInstance(Tab tab) {
@@ -62,10 +64,20 @@ public class CollectionsFragment extends Fragment implements CollectionsContract
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_grid, container, false);
 
+        setRetainInstance(true);
+
         mTab = getArguments().getParcelable(TAB);
         mProgressBar = view.findViewById(R.id.pb_loading_indicator);
         mRecyclerView = view.findViewById(R.id.rv_grid);
         mErrorMessage = view.findViewById(R.id.tv_error_message_display);
+
+        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, 2);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
+
+        mAdapter = new CollectionsGridAdapter();
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setItemViewCacheSize(10);
 
         return view;
     }
@@ -91,6 +103,7 @@ public class CollectionsFragment extends Fragment implements CollectionsContract
     @Override
     public void onCollectionsLoaded(List<Collection> collections) {
         showRecyclerView();
+        mAdapter.setCollections(collections);
     }
 
     @Override

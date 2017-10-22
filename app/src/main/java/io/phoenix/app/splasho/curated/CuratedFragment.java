@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import io.phoenix.app.splasho.container.Tab;
 import io.phoenix.app.splasho.data.photos.PhotosRepository;
 import io.phoenix.app.splasho.models.Photo;
 import io.phoenix.app.splasho.photos.PhotosContract.OrderBy;
+import io.phoenix.app.splasho.photos.PhotosGridAdapter;
 import io.phoenix.app.splasho.util.HTTPUtils;
 
 /**
@@ -35,6 +37,8 @@ public class CuratedFragment extends Fragment implements CuratedContract.View {
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
     private TextView mErrorMessage;
+
+    private PhotosGridAdapter mAdapter;
 
     private Tab mTab;
 
@@ -66,6 +70,14 @@ public class CuratedFragment extends Fragment implements CuratedContract.View {
         mRecyclerView = view.findViewById(R.id.rv_grid);
         mErrorMessage = view.findViewById(R.id.tv_error_message_display);
 
+        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, 2);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
+
+        mAdapter = new PhotosGridAdapter();
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setItemViewCacheSize(10);
+
         return view;
     }
 
@@ -90,6 +102,7 @@ public class CuratedFragment extends Fragment implements CuratedContract.View {
     @Override
     public void onCuratedPhotosLoaded(List<Photo> photos) {
         showRecyclerView();
+        mAdapter.setPhotos(photos);
     }
 
     @Override

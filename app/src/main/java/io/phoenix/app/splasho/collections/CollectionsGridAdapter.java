@@ -39,6 +39,11 @@ public class CollectionsGridAdapter extends RecyclerView.Adapter<CollectionsGrid
         return mCollections.size();
     }
 
+    public void setCollections(List<Collection> collections) {
+        this.mCollections = collections;
+        notifyDataSetChanged();
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View itemView) {
             super(itemView);

@@ -37,7 +37,6 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     private TextView mErrorMessage;
 
     private PhotosGridAdapter mAdapter;
-
     private Tab mTab;
 
     public static PhotosFragment newInstance(Tab tab) {
@@ -66,7 +65,6 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
         setRetainInstance(true);
 
         mTab = getArguments().getParcelable(TAB);
-
         mProgressBar = view.findViewById(R.id.pb_loading_indicator);
         mRecyclerView = view.findViewById(R.id.rv_grid);
         mErrorMessage = view.findViewById(R.id.tv_error_message_display);
@@ -77,6 +75,7 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
 
         mAdapter = new PhotosGridAdapter();
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setItemViewCacheSize(10);
 
         return view;
     }
