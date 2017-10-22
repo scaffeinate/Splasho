@@ -28,13 +28,15 @@ public class PhotosGridAdapter extends RecyclerView.Adapter<PhotosGridAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_grid, null);
-        view.setMinimumHeight(parent.getMeasuredHeight() / 2);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_photo, null);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        View view = holder.itemView;
+        //TODO (1): Fix this on screen rotate
+        view.setMinimumHeight(view.getMeasuredHeight() / 2);
         holder.bind(position);
     }
 
