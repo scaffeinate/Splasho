@@ -26,6 +26,8 @@ public class UnsplashApiClient {
     private static UnsplashApiClient mApiClient;
     private static UnsplashAPI mApi;
 
+    private Call call;
+
     private UnsplashApiClient() {
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(buildBaseURL())
@@ -60,6 +62,10 @@ public class UnsplashApiClient {
 
     public void loadCuratedCollections(int page, Callback<List<Collection>> apiCallback) {
         mApi.loadCuratedCollections(UNSPLASH_APP_ID, page).enqueue(apiCallback);
+    public void cancel() {
+        if (call != null && !call.isCanceled()) {
+            call.cancel();
+        }
     }
 
     private HttpUrl buildBaseURL() {

@@ -78,4 +78,9 @@ public class CollectionsRepository implements CollectionsDataSource {
                 break;
         }
     }
+
+    @Override
+    public void cancel() {
+        mApiClient.cancel();
+    }
 }

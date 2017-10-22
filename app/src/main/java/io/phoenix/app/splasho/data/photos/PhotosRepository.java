@@ -62,4 +62,9 @@ public class PhotosRepository implements PhotosDataSource {
             }
         });
     }
+
+    @Override
+    public void cancel() {
+        mApiClient.cancel();
+    }
 }

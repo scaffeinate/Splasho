@@ -25,6 +25,8 @@ public interface CollectionsContract {
 
     interface Presenter {
         void loadCollections(int page, @Type String type);
+
+        void cancel();
     }
 
     interface View {

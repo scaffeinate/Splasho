@@ -25,6 +25,8 @@ public interface PhotosContract {
 
     interface Presenter {
         void loadPhotos(int page, @OrderBy String orderBy);
+
+        void cancel();
     }
 
     interface View {

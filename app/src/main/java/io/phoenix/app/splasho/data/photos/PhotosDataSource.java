@@ -2,18 +2,20 @@ package io.phoenix.app.splasho.data.photos;
 
 import java.util.List;
 
+import io.phoenix.app.splasho.data.DataSource;
 import io.phoenix.app.splasho.models.Photo;
-import io.phoenix.app.splasho.photos.PhotosContract;
+
+import static io.phoenix.app.splasho.photos.PhotosContract.OrderBy;
 
 /**
  * Created by sudharti on 10/21/17.
  */
 
-public interface PhotosDataSource {
+public interface PhotosDataSource extends DataSource {
 
-    void loadPhotos(int page, @PhotosContract.OrderBy String orderBy, LoadPhotosCallback callback);
+    void loadPhotos(int page, @OrderBy String orderBy, LoadPhotosCallback callback);
 
-    void loadCuratedPhotos(int page, @PhotosContract.OrderBy String orderBy, LoadPhotosCallback callback);
+    void loadCuratedPhotos(int page, @OrderBy String orderBy, LoadPhotosCallback callback);
 
     interface LoadPhotosCallback {
         void onPhotosLoaded(List<Photo> photos);

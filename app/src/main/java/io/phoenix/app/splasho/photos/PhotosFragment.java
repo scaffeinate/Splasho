@@ -92,6 +92,12 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.cancel();
+    }
+
+    @Override
     public void onPhotosLoaded(List<Photo> photos) {
         showRecyclerView();
         mAdapter.setPhotos(photos);

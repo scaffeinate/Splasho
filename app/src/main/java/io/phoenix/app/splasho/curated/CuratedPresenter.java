@@ -39,4 +39,9 @@ public class CuratedPresenter implements CuratedContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void cancel() {
+        mRepository.cancel();
+    }
 }

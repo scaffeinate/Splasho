@@ -79,7 +79,12 @@ public class CuratedFragment extends Fragment implements CuratedContract.View {
             showErrorMessage();
             mErrorMessage.setText(mContext.getResources().getString(R.string.unable_to_connect_error_message));
         }
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.cancel();
     }
 
     @Override

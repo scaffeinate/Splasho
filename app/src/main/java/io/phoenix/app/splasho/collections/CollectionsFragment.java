@@ -83,6 +83,12 @@ public class CollectionsFragment extends Fragment implements CollectionsContract
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.cancel();
+    }
+
+    @Override
     public void onCollectionsLoaded(List<Collection> collections) {
         showRecyclerView();
     }

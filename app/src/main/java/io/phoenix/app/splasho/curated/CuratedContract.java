@@ -13,6 +13,8 @@ public interface CuratedContract {
 
     interface Presenter {
         void loadCuratedPhotos(int page, @OrderBy String orderBy);
+
+        void cancel();
     }
 
     interface View {

@@ -39,4 +39,9 @@ public class PhotosPresenter implements PhotosContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void cancel() {
+        mRepository.cancel();
+    }
 }
