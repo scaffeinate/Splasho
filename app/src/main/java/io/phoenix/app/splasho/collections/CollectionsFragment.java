@@ -20,6 +20,9 @@ import io.phoenix.app.splasho.data.collections.CollectionsRepository;
 import io.phoenix.app.splasho.models.Collection;
 import io.phoenix.app.splasho.util.HTTPUtils;
 
+import static io.phoenix.app.splasho.Splasho.CURRENT_TAB;
+import static io.phoenix.app.splasho.Splasho.NUM_COLUMNS_IN_GRID;
+import static io.phoenix.app.splasho.Splasho.VIEW_CACHE_SIZE;
 import static io.phoenix.app.splasho.collections.CollectionsContract.Type.ALL;
 
 /**
@@ -27,8 +30,6 @@ import static io.phoenix.app.splasho.collections.CollectionsContract.Type.ALL;
  */
 
 public class CollectionsFragment extends Fragment implements CollectionsContract.View {
-
-    private static final String TAB = "tab";
 
     private Context mContext;
     private CollectionsPresenter mPresenter;
@@ -45,7 +46,7 @@ public class CollectionsFragment extends Fragment implements CollectionsContract
         CollectionsFragment fragment = new CollectionsFragment();
 
         Bundle args = new Bundle();
-        args.putParcelable(TAB, tab);
+        args.putParcelable(CURRENT_TAB, tab);
         fragment.setArguments(args);
 
         return fragment;
@@ -66,18 +67,18 @@ public class CollectionsFragment extends Fragment implements CollectionsContract
 
         setRetainInstance(true);
 
-        mTab = getArguments().getParcelable(TAB);
+        mTab = getArguments().getParcelable(CURRENT_TAB);
         mProgressBar = view.findViewById(R.id.pb_loading_indicator);
         mRecyclerView = view.findViewById(R.id.rv_grid);
         mErrorMessage = view.findViewById(R.id.tv_error_message_display);
 
-        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, 2);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, NUM_COLUMNS_IN_GRID);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
         mAdapter = new CollectionsGridAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setItemViewCacheSize(10);
+        mRecyclerView.setItemViewCacheSize(VIEW_CACHE_SIZE);
 
         return view;
     }

@@ -15,18 +15,22 @@ import android.widget.TextView;
 import java.util.List;
 
 import io.phoenix.app.splasho.R;
+import io.phoenix.app.splasho.Splasho;
 import io.phoenix.app.splasho.container.Tab;
 import io.phoenix.app.splasho.data.photos.PhotosRepository;
 import io.phoenix.app.splasho.models.Photo;
 import io.phoenix.app.splasho.util.HTTPUtils;
+
+import static io.phoenix.app.splasho.Splasho.CURRENT_TAB;
+import static io.phoenix.app.splasho.Splasho.NUM_COLUMNS_IN_GRID;
+import static io.phoenix.app.splasho.Splasho.VIEW_CACHE_SIZE;
+import static io.phoenix.app.splasho.photos.PhotosContract.OrderBy.LATEST;
 
 /**
  * Created by sudharti on 10/21/17.
  */
 
 public class PhotosFragment extends Fragment implements PhotosContract.View {
-
-    private static final String TAB = "tab";
 
     private Context mContext;
     private PhotosRepository mRepository;
@@ -43,7 +47,7 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
         PhotosFragment fragment = new PhotosFragment();
 
         Bundle args = new Bundle();
-        args.putParcelable(TAB, tab);
+        args.putParcelable(CURRENT_TAB, tab);
         fragment.setArguments(args);
 
         return fragment;
@@ -64,18 +68,18 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
 
         setRetainInstance(true);
 
-        mTab = getArguments().getParcelable(TAB);
+        mTab = getArguments().getParcelable(CURRENT_TAB);
         mProgressBar = view.findViewById(R.id.pb_loading_indicator);
         mRecyclerView = view.findViewById(R.id.rv_grid);
         mErrorMessage = view.findViewById(R.id.tv_error_message_display);
 
-        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, 2);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, NUM_COLUMNS_IN_GRID);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
         mAdapter = new PhotosGridAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setItemViewCacheSize(10);
+        mRecyclerView.setItemViewCacheSize(VIEW_CACHE_SIZE);
 
         return view;
     }
@@ -85,7 +89,7 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
         super.onResume();
         if (HTTPUtils.isNetworkEnabled(mContext)) {
             showProgressBar();
-            mPresenter.loadPhotos(1, (mTab != null) ? mTab.getKey() : PhotosContract.OrderBy.LATEST);
+            mPresenter.loadPhotos(1, (mTab != null) ? mTab.getKey() : LATEST);
         } else {
             showErrorMessage();
             mErrorMessage.setText(mContext.getResources().getString(R.string.unable_to_connect_error_message));

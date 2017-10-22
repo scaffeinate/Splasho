@@ -2,8 +2,6 @@ package io.phoenix.app.splasho.data;
 
 import java.util.List;
 
-import io.phoenix.app.splasho.BuildConfig;
-import io.phoenix.app.splasho.UnsplashAPI;
 import io.phoenix.app.splasho.models.Collection;
 import io.phoenix.app.splasho.models.Photo;
 import io.phoenix.app.splasho.photos.PhotosContract;
@@ -13,14 +11,15 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static io.phoenix.app.splasho.Splasho.PER_PAGE;
+import static io.phoenix.app.splasho.Splasho.UNSPLASH_APP_ID;
+
 /**
  * Created by sudharti on 10/21/17.
  */
 
 public class UnsplashApiClient {
 
-    private final static int PER_PAGE = 35;
-    private final static String UNSPLASH_APP_ID = BuildConfig.UNSPLASH_APP_ID;
     private final static String SCHEME = "https";
     private final static String BASE_PATH = "api.unsplash.com";
 

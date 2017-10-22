@@ -18,17 +18,19 @@ import io.phoenix.app.splasho.R;
 import io.phoenix.app.splasho.container.Tab;
 import io.phoenix.app.splasho.data.photos.PhotosRepository;
 import io.phoenix.app.splasho.models.Photo;
-import io.phoenix.app.splasho.photos.PhotosContract.OrderBy;
 import io.phoenix.app.splasho.photos.PhotosGridAdapter;
 import io.phoenix.app.splasho.util.HTTPUtils;
+
+import static io.phoenix.app.splasho.Splasho.CURRENT_TAB;
+import static io.phoenix.app.splasho.Splasho.NUM_COLUMNS_IN_GRID;
+import static io.phoenix.app.splasho.Splasho.VIEW_CACHE_SIZE;
+import static io.phoenix.app.splasho.photos.PhotosContract.OrderBy.LATEST;
 
 /**
  * Created by sudharti on 10/22/17.
  */
 
 public class CuratedFragment extends Fragment implements CuratedContract.View {
-
-    private static final String TAB = "tab";
 
     private Context mContext;
     private CuratedPresenter mPresenter;
@@ -46,7 +48,7 @@ public class CuratedFragment extends Fragment implements CuratedContract.View {
         CuratedFragment fragment = new CuratedFragment();
 
         Bundle args = new Bundle();
-        args.putParcelable(TAB, tab);
+        args.putParcelable(CURRENT_TAB, tab);
         fragment.setArguments(args);
 
         return fragment;
@@ -65,18 +67,18 @@ public class CuratedFragment extends Fragment implements CuratedContract.View {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_grid, container, false);
 
-        mTab = getArguments().getParcelable(TAB);
+        mTab = getArguments().getParcelable(CURRENT_TAB);
         mProgressBar = view.findViewById(R.id.pb_loading_indicator);
         mRecyclerView = view.findViewById(R.id.rv_grid);
         mErrorMessage = view.findViewById(R.id.tv_error_message_display);
 
-        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, 2);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, NUM_COLUMNS_IN_GRID);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
         mAdapter = new PhotosGridAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setItemViewCacheSize(10);
+        mRecyclerView.setItemViewCacheSize(VIEW_CACHE_SIZE);
 
         return view;
     }
@@ -86,7 +88,7 @@ public class CuratedFragment extends Fragment implements CuratedContract.View {
         super.onResume();
         if (HTTPUtils.isNetworkEnabled(mContext)) {
             showProgressBar();
-            mPresenter.loadCuratedPhotos(1, (mTab != null) ? mTab.getKey() : OrderBy.LATEST);
+            mPresenter.loadCuratedPhotos(1, (mTab != null) ? mTab.getKey() : LATEST);
         } else {
             showErrorMessage();
             mErrorMessage.setText(mContext.getResources().getString(R.string.unable_to_connect_error_message));

@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import io.phoenix.app.splasho.MainActivity;
+import io.phoenix.app.splasho.home.MainActivity;
 import io.phoenix.app.splasho.R;
 
 /**

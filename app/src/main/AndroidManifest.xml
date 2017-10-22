@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="io.phoenix.app.splasho.MainActivity"
+            android:name="io.phoenix.app.splasho.home.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"></activity>
 
         <meta-data

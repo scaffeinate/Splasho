@@ -1,4 +1,4 @@
-package io.phoenix.app.splasho;
+package io.phoenix.app.splasho.home;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -18,12 +18,17 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import io.phoenix.app.splasho.R;
 import io.phoenix.app.splasho.container.Tab;
-import io.phoenix.app.splasho.photos.PhotosContract;
 
+import static io.phoenix.app.splasho.collections.CollectionsContract.Type.ALL;
+import static io.phoenix.app.splasho.collections.CollectionsContract.Type.CURATED;
+import static io.phoenix.app.splasho.collections.CollectionsContract.Type.FEATURED;
 import static io.phoenix.app.splasho.container.ViewPagerContainerFragment.Screen;
 import static io.phoenix.app.splasho.container.ViewPagerContainerFragment.newInstance;
-import static io.phoenix.app.splasho.photos.PhotosContract.OrderBy.*;
+import static io.phoenix.app.splasho.photos.PhotosContract.OrderBy.LATEST;
+import static io.phoenix.app.splasho.photos.PhotosContract.OrderBy.OLDEST;
+import static io.phoenix.app.splasho.photos.PhotosContract.OrderBy.POPULAR;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -46,9 +51,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     };
 
     private Tab[] collectionsTabs = new Tab[]{
-            new Tab("All", "all"),
-            new Tab("Featured", "featured"),
-            new Tab("Curated", "curated")
+            new Tab("All", ALL),
+            new Tab("Featured", FEATURED),
+            new Tab("Curated", CURATED)
     };
 
     @Override
