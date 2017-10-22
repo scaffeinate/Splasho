@@ -2,6 +2,7 @@ package io.phoenix.app.splasho.data.collections;
 
 import java.util.List;
 
+import io.phoenix.app.splasho.data.Cancellable;
 import io.phoenix.app.splasho.data.UnsplashApiClient;
 import io.phoenix.app.splasho.models.Collection;
 import retrofit2.Call;
@@ -14,7 +15,7 @@ import static io.phoenix.app.splasho.collections.CollectionsContract.Type;
  * Created by sudharti on 10/22/17.
  */
 
-public class CollectionsRepository implements CollectionsDataSource {
+public class CollectionsRepository implements CollectionsDatasource, Cancellable {
 
     private static UnsplashApiClient mApiClient;
     private static CollectionsRepository mRepository;

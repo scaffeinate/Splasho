@@ -2,6 +2,7 @@ package io.phoenix.app.splasho.data.photos;
 
 import java.util.List;
 
+import io.phoenix.app.splasho.data.Cancellable;
 import io.phoenix.app.splasho.data.UnsplashApiClient;
 import io.phoenix.app.splasho.models.Photo;
 import retrofit2.Call;
@@ -12,7 +13,7 @@ import retrofit2.Response;
  * Created by sudharti on 10/21/17.
  */
 
-public class PhotosRepository implements PhotosDataSource {
+public class PhotosRepository implements PhotosDatasource, Cancellable {
 
     private static PhotosRepository mRepository;
     private UnsplashApiClient mApiClient;
