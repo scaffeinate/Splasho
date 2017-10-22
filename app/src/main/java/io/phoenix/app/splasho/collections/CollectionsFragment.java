@@ -31,7 +31,7 @@ public class CollectionsFragment extends Fragment implements CollectionsContract
     private static final String TAB = "tab";
 
     private Context mContext;
-    private CollectionsContract.Presenter mPresenter;
+    private CollectionsPresenter mPresenter;
     private CollectionsRepository mRepository;
 
     private RecyclerView mRecyclerView;

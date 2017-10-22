@@ -4,30 +4,34 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import io.phoenix.app.splasho.data.Cancellable;
 import io.phoenix.app.splasho.data.photos.PhotosDataSource;
 import io.phoenix.app.splasho.data.photos.PhotosRepository;
 import io.phoenix.app.splasho.models.Photo;
+
+import static io.phoenix.app.splasho.data.photos.PhotosDataSource.*;
+import static io.phoenix.app.splasho.photos.PhotosContract.*;
 
 /**
  * Created by sudharti on 10/21/17.
  */
 
-public class PhotosPresenter implements PhotosContract.Presenter {
+public class PhotosPresenter implements Presenter, Cancellable {
 
     @NonNull
-    private PhotosContract.View mView;
+    private View mView;
 
     @NonNull
     private final PhotosRepository mRepository;
 
-    public PhotosPresenter(PhotosContract.View view, PhotosRepository repository) {
+    public PhotosPresenter(View view, PhotosRepository repository) {
         this.mView = view;
         this.mRepository = repository;
     }
 
     @Override
     public void loadPhotos(int page, String orderBy) {
-        mRepository.loadPhotos(page, orderBy, new PhotosDataSource.LoadPhotosCallback() {
+        mRepository.loadPhotos(page, orderBy, new LoadPhotosCallback() {
             @Override
             public void onPhotosLoaded(List<Photo> photos) {
                 mView.onPhotosLoaded(photos);

@@ -4,30 +4,34 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import io.phoenix.app.splasho.data.photos.PhotosDataSource;
+import io.phoenix.app.splasho.data.Cancellable;
 import io.phoenix.app.splasho.data.photos.PhotosRepository;
 import io.phoenix.app.splasho.models.Photo;
+
+import static io.phoenix.app.splasho.curated.CuratedContract.Presenter;
+import static io.phoenix.app.splasho.curated.CuratedContract.View;
+import static io.phoenix.app.splasho.data.photos.PhotosDataSource.LoadPhotosCallback;
 
 /**
  * Created by sudharti on 10/22/17.
  */
 
-public class CuratedPresenter implements CuratedContract.Presenter {
+public class CuratedPresenter implements Presenter, Cancellable {
 
     @NonNull
-    private CuratedContract.View mView;
+    private View mView;
 
     @NonNull
     private final PhotosRepository mRepository;
 
-    public CuratedPresenter(CuratedContract.View view, PhotosRepository repository) {
+    public CuratedPresenter(View view, PhotosRepository repository) {
         this.mView = view;
         this.mRepository = repository;
     }
 
     @Override
     public void loadCuratedPhotos(int page, String orderBy) {
-        mRepository.loadCuratedPhotos(page, orderBy, new PhotosDataSource.LoadPhotosCallback() {
+        mRepository.loadCuratedPhotos(page, orderBy, new LoadPhotosCallback() {
             @Override
             public void onPhotosLoaded(List<Photo> photos) {
                 mView.onCuratedPhotosLoaded(photos);
