@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_camera_black_24dp"
             android:title="@string/action_photos" />
         <item
+            android:id="@+id/action_curated_photos"
+            android:icon="@drawable/ic_camera_black_24dp"
+            android:title="@string/action_curated_photos" />
+        <item
             android:id="@+id/action_collections"
             android:icon="@drawable/ic_image_filter_black_24dp"
             android:title="@string/action_collections" />

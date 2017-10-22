@@ -7,13 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import io.phoenix.app.splasho.R;
+import io.phoenix.app.splasho.models.Photo;
 
 /**
  * Created by sudharti on 10/21/17.
  */
 
-public class PhotosFragment extends Fragment {
+public class PhotosFragment extends Fragment implements PhotosContract.View {
     public static PhotosFragment newInstance() {
         return new PhotosFragment();
     }
@@ -23,5 +26,15 @@ public class PhotosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_grid, container, false);
         return view;
+    }
+
+    @Override
+    public void onPhotosLoaded(List<Photo> photos) {
+
+    }
+
+    @Override
+    public void onDataNotAvailable(String errorMessage) {
+
     }
 }

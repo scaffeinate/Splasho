@@ -19,7 +19,7 @@ public class PhotosContainerFragment extends Fragment {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
-    private static String[] mTabs = new String[]{"Latest", "Popular", "Curated"};
+    private static String[] mTabs = new String[]{"Latest", "Popular", "Oldest"};
 
     private PhotosViewPagerAdapter mAdapter;
 

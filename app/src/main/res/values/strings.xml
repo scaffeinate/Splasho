@@ -4,6 +4,7 @@
     <string name="close">Close</string>
 
     <string name="action_photos">Photos</string>
+    <string name="action_curated_photos">Curated Photos</string>
     <string name="action_collections">Collections</string>
     <string name="action_settings">Settings</string>
     <string name="action_share">Share</string>
