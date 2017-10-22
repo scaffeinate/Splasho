@@ -17,7 +17,7 @@ public interface PhotosContract {
 
     @Retention(SOURCE)
     @StringDef({OrderBy.LATEST, OrderBy.POPULAR, OrderBy.OLDEST})
-    public @interface OrderBy {
+    @interface OrderBy {
         String LATEST = "latest";
         String POPULAR = "popular";
         String OLDEST = "oldest";
@@ -25,8 +25,6 @@ public interface PhotosContract {
 
     interface Presenter {
         void loadPhotos(int page, @OrderBy String orderBy);
-
-        void loadCuratedPhotos(int page, @OrderBy String orderBy);
     }
 
     interface View {

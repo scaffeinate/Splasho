@@ -18,12 +18,12 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Arrays;
-
 import io.phoenix.app.splasho.container.Tab;
+import io.phoenix.app.splasho.photos.PhotosContract;
 
 import static io.phoenix.app.splasho.container.ViewPagerContainerFragment.Screen;
 import static io.phoenix.app.splasho.container.ViewPagerContainerFragment.newInstance;
+import static io.phoenix.app.splasho.photos.PhotosContract.OrderBy.*;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int selectedItem = R.id.action_photos;
 
     private Tab[] photosTabs = new Tab[]{
-            new Tab("Latest", "latest"),
-            new Tab("Popular", "popular"),
-            new Tab("Oldest", "oldest")
+            new Tab("Latest", LATEST),
+            new Tab("Popular", POPULAR),
+            new Tab("Oldest", OLDEST)
     };
 
     private Tab[] collectionsTabs = new Tab[]{

@@ -1,4 +1,4 @@
-package io.phoenix.app.splasho.photos;
+package io.phoenix.app.splasho.curated;
 
 import android.support.annotation.NonNull;
 
@@ -9,28 +9,28 @@ import io.phoenix.app.splasho.data.photos.PhotosRepository;
 import io.phoenix.app.splasho.models.Photo;
 
 /**
- * Created by sudharti on 10/21/17.
+ * Created by sudharti on 10/22/17.
  */
 
-public class PhotosPresenter implements PhotosContract.Presenter {
+public class CuratedPresenter implements CuratedContract.Presenter {
 
     @NonNull
-    private PhotosContract.View mView;
+    private CuratedContract.View mView;
 
     @NonNull
     private final PhotosRepository mRepository;
 
-    public PhotosPresenter(PhotosContract.View view, PhotosRepository repository) {
+    public CuratedPresenter(CuratedContract.View view, PhotosRepository repository) {
         this.mView = view;
         this.mRepository = repository;
     }
 
     @Override
-    public void loadPhotos(int page, String orderBy) {
-        mRepository.loadPhotos(page, orderBy, new PhotosDataSource.LoadPhotosCallback() {
+    public void loadCuratedPhotos(int page, String orderBy) {
+        mRepository.loadCuratedPhotos(page, orderBy, new PhotosDataSource.LoadPhotosCallback() {
             @Override
             public void onPhotosLoaded(List<Photo> photos) {
-                mView.onPhotosLoaded(photos);
+                mView.onCuratedPhotosLoaded(photos);
             }
 
             @Override
