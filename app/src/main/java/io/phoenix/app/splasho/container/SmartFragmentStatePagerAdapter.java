@@ -1,4 +1,4 @@
-package io.phoenix.app.splasho;
+package io.phoenix.app.splasho.container;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
