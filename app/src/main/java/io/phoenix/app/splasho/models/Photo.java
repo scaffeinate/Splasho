@@ -50,9 +50,6 @@ public class Photo implements Parcelable {
     @SerializedName("categories")
     @Expose
     private List<Object> categories = null;
-    @SerializedName("links")
-    @Expose
-    private Links links;
     public final static Creator<Photo> CREATOR = new Creator<Photo>() {
 
 
@@ -83,7 +80,6 @@ public class Photo implements Parcelable {
         in.readList(this.currentUserCollections, (Object.class.getClassLoader()));
         this.urls = ((Urls) in.readValue((Urls.class.getClassLoader())));
         in.readList(this.categories, (Object.class.getClassLoader()));
-        this.links = ((Links) in.readValue((Links.class.getClassLoader())));
     }
 
     public Photo() {
@@ -193,14 +189,6 @@ public class Photo implements Parcelable {
         this.categories = categories;
     }
 
-    public Links getLinks() {
-        return links;
-    }
-
-    public void setLinks(Links links) {
-        this.links = links;
-    }
-
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
         dest.writeValue(createdAt);
@@ -215,190 +203,9 @@ public class Photo implements Parcelable {
         dest.writeList(currentUserCollections);
         dest.writeValue(urls);
         dest.writeList(categories);
-        dest.writeValue(links);
     }
 
     public int describeContents() {
         return 0;
-    }
-
-    public static class Links implements Parcelable {
-
-        @SerializedName("self")
-        @Expose
-        private String self;
-        @SerializedName("html")
-        @Expose
-        private String html;
-        @SerializedName("download")
-        @Expose
-        private String download;
-        @SerializedName("download_location")
-        @Expose
-        private String downloadLocation;
-        public final static Creator<Links> CREATOR = new Creator<Links>() {
-
-
-            @SuppressWarnings({
-                    "unchecked"
-            })
-            public Links createFromParcel(Parcel in) {
-                return new Links(in);
-            }
-
-            public Links[] newArray(int size) {
-                return (new Links[size]);
-            }
-
-        };
-
-        protected Links(Parcel in) {
-            this.self = ((String) in.readValue((String.class.getClassLoader())));
-            this.html = ((String) in.readValue((String.class.getClassLoader())));
-            this.download = ((String) in.readValue((String.class.getClassLoader())));
-            this.downloadLocation = ((String) in.readValue((String.class.getClassLoader())));
-        }
-
-        public Links() {
-        }
-
-        public String getSelf() {
-            return self;
-        }
-
-        public void setSelf(String self) {
-            this.self = self;
-        }
-
-        public String getHtml() {
-            return html;
-        }
-
-        public void setHtml(String html) {
-            this.html = html;
-        }
-
-        public String getDownload() {
-            return download;
-        }
-
-        public void setDownload(String download) {
-            this.download = download;
-        }
-
-        public String getDownloadLocation() {
-            return downloadLocation;
-        }
-
-        public void setDownloadLocation(String downloadLocation) {
-            this.downloadLocation = downloadLocation;
-        }
-
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeValue(self);
-            dest.writeValue(html);
-            dest.writeValue(download);
-            dest.writeValue(downloadLocation);
-        }
-
-        public int describeContents() {
-            return 0;
-        }
-    }
-
-    public static class Urls implements Parcelable {
-
-        @SerializedName("raw")
-        @Expose
-        private String raw;
-        @SerializedName("full")
-        @Expose
-        private String full;
-        @SerializedName("regular")
-        @Expose
-        private String regular;
-        @SerializedName("small")
-        @Expose
-        private String small;
-        @SerializedName("thumb")
-        @Expose
-        private String thumb;
-        public final static Creator<Urls> CREATOR = new Creator<Urls>() {
-            @SuppressWarnings({
-                    "unchecked"
-            })
-            public Urls createFromParcel(Parcel in) {
-                return new Urls(in);
-            }
-
-            public Urls[] newArray(int size) {
-                return (new Urls[size]);
-            }
-
-        };
-
-        protected Urls(Parcel in) {
-            this.raw = ((String) in.readValue((String.class.getClassLoader())));
-            this.full = ((String) in.readValue((String.class.getClassLoader())));
-            this.regular = ((String) in.readValue((String.class.getClassLoader())));
-            this.small = ((String) in.readValue((String.class.getClassLoader())));
-            this.thumb = ((String) in.readValue((String.class.getClassLoader())));
-        }
-
-        public Urls() {
-        }
-
-        public String getRaw() {
-            return raw;
-        }
-
-        public void setRaw(String raw) {
-            this.raw = raw;
-        }
-
-        public String getFull() {
-            return full;
-        }
-
-        public void setFull(String full) {
-            this.full = full;
-        }
-
-        public String getRegular() {
-            return regular;
-        }
-
-        public void setRegular(String regular) {
-            this.regular = regular;
-        }
-
-        public String getSmall() {
-            return small;
-        }
-
-        public void setSmall(String small) {
-            this.small = small;
-        }
-
-        public String getThumb() {
-            return thumb;
-        }
-
-        public void setThumb(String thumb) {
-            this.thumb = thumb;
-        }
-
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeValue(raw);
-            dest.writeValue(full);
-            dest.writeValue(regular);
-            dest.writeValue(small);
-            dest.writeValue(thumb);
-        }
-
-        public int describeContents() {
-            return 0;
-        }
-
     }
 }

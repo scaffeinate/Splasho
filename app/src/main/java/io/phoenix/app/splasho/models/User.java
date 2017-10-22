@@ -51,9 +51,7 @@ public class User implements Parcelable {
     @SerializedName("profile_image")
     @Expose
     private ProfileImage profileImage;
-    @SerializedName("links")
-    @Expose
-    private Links links;
+
     public final static Creator<User> CREATOR = new Creator<User>() {
 
         @SuppressWarnings({
@@ -84,7 +82,6 @@ public class User implements Parcelable {
         this.totalPhotos = ((long) in.readValue((long.class.getClassLoader())));
         this.totalCollections = ((long) in.readValue((long.class.getClassLoader())));
         this.profileImage = ((ProfileImage) in.readValue((ProfileImage.class.getClassLoader())));
-        this.links = ((Links) in.readValue((Links.class.getClassLoader())));
     }
 
     public User() {
@@ -202,14 +199,6 @@ public class User implements Parcelable {
         this.profileImage = profileImage;
     }
 
-    public Links getLinks() {
-        return links;
-    }
-
-    public void setLinks(Links links) {
-        this.links = links;
-    }
-
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
         dest.writeValue(updatedAt);
@@ -225,135 +214,10 @@ public class User implements Parcelable {
         dest.writeValue(totalPhotos);
         dest.writeValue(totalCollections);
         dest.writeValue(profileImage);
-        dest.writeValue(links);
     }
 
     public int describeContents() {
         return 0;
-    }
-
-    public static class Links implements Parcelable {
-
-        @SerializedName("self")
-        @Expose
-        private String self;
-        @SerializedName("html")
-        @Expose
-        private String html;
-        @SerializedName("photos")
-        @Expose
-        private String photos;
-        @SerializedName("likes")
-        @Expose
-        private String likes;
-        @SerializedName("portfolio")
-        @Expose
-        private String portfolio;
-        @SerializedName("following")
-        @Expose
-        private String following;
-        @SerializedName("followers")
-        @Expose
-        private String followers;
-        public final static Creator<Links> CREATOR = new Creator<Links>() {
-
-
-            @SuppressWarnings({
-                    "unchecked"
-            })
-            public Links createFromParcel(Parcel in) {
-                return new Links(in);
-            }
-
-            public Links[] newArray(int size) {
-                return (new Links[size]);
-            }
-
-        };
-
-        protected Links(Parcel in) {
-            this.self = ((String) in.readValue((String.class.getClassLoader())));
-            this.html = ((String) in.readValue((String.class.getClassLoader())));
-            this.photos = ((String) in.readValue((String.class.getClassLoader())));
-            this.likes = ((String) in.readValue((String.class.getClassLoader())));
-            this.portfolio = ((String) in.readValue((String.class.getClassLoader())));
-            this.following = ((String) in.readValue((String.class.getClassLoader())));
-            this.followers = ((String) in.readValue((String.class.getClassLoader())));
-        }
-
-        public Links() {
-        }
-
-        public String getSelf() {
-            return self;
-        }
-
-        public void setSelf(String self) {
-            this.self = self;
-        }
-
-        public String getHtml() {
-            return html;
-        }
-
-        public void setHtml(String html) {
-            this.html = html;
-        }
-
-        public String getPhotos() {
-            return photos;
-        }
-
-        public void setPhotos(String photos) {
-            this.photos = photos;
-        }
-
-        public String getLikes() {
-            return likes;
-        }
-
-        public void setLikes(String likes) {
-            this.likes = likes;
-        }
-
-        public String getPortfolio() {
-            return portfolio;
-        }
-
-        public void setPortfolio(String portfolio) {
-            this.portfolio = portfolio;
-        }
-
-        public String getFollowing() {
-            return following;
-        }
-
-        public void setFollowing(String following) {
-            this.following = following;
-        }
-
-        public String getFollowers() {
-            return followers;
-        }
-
-        public void setFollowers(String followers) {
-            this.followers = followers;
-        }
-
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeValue(self);
-            dest.writeValue(html);
-            dest.writeValue(photos);
-            dest.writeValue(likes);
-            dest.writeValue(portfolio);
-            dest.writeValue(following);
-            dest.writeValue(followers);
-        }
-
-        public int describeContents() {
-            return 0;
-        }
-
     }
 
     public static class ProfileImage implements Parcelable {
