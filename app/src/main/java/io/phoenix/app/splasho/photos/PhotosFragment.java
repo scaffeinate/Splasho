@@ -63,6 +63,8 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_grid, container, false);
 
+        setRetainInstance(true);
+
         mTab = getArguments().getParcelable(TAB);
 
         mProgressBar = view.findViewById(R.id.pb_loading_indicator);

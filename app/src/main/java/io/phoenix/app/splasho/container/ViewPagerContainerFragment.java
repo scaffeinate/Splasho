@@ -66,6 +66,7 @@ public class ViewPagerContainerFragment extends Fragment {
         mViewPager = view.findViewById(R.id.view_pager);
         mTabLayout = view.findViewById(R.id.tab_layout);
         mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.setOffscreenPageLimit(3);
 
         if (mScreen != null && mTabs != null) {
             mAdapter = new CustomFragmentStatePagerAdapter(getChildFragmentManager(), mScreen);
