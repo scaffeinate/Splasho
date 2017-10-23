@@ -15,6 +15,7 @@ import java.util.List;
 
 import io.phoenix.app.splasho.R;
 import io.phoenix.app.splasho.models.Collection;
+import io.phoenix.app.splasho.models.CoverPhoto;
 import io.phoenix.app.splasho.util.DisplayUtils;
 
 /**
@@ -56,11 +57,13 @@ public class CollectionsGridAdapter extends RecyclerView.Adapter<CollectionsGrid
 
         final ImageView mCollectionImageView;
         final TextView mCollectionTextView;
+        final TextView mCollectionCountTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mCollectionImageView = itemView.findViewById(R.id.iv_collection);
             mCollectionTextView = itemView.findViewById(R.id.tv_collection);
+            mCollectionCountTextView = itemView.findViewById(R.id.tv_collection_count);
         }
 
         private void bind(int position) {
@@ -71,11 +74,19 @@ public class CollectionsGridAdapter extends RecyclerView.Adapter<CollectionsGrid
 
                 itemView.setMinimumHeight(height);
 
-                mCollectionTextView.setText(collection.getTitle());
-                Picasso.with(itemView.getContext())
-                        .load(collection.getCoverPhoto().getUrls().getSmall())
-                        .centerCrop().fit()
-                        .into(mCollectionImageView);
+                if (collection.getTitle() != null) {
+                    mCollectionTextView.setText(collection.getTitle());
+                }
+
+                mCollectionCountTextView.setText(collection.getTotalPhotos() + " photos");
+
+                CoverPhoto coverPhoto = collection.getCoverPhoto();
+                if (coverPhoto != null && coverPhoto.getUrls() != null && coverPhoto.getUrls().getSmall() != null) {
+                    Picasso.with(itemView.getContext())
+                            .load(collection.getCoverPhoto().getUrls().getSmall())
+                            .centerCrop().fit()
+                            .into(mCollectionImageView);
+                }
             }
         }
     }
