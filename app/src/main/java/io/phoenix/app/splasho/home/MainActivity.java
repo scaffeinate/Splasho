@@ -21,14 +21,10 @@ import android.widget.Toast;
 import io.phoenix.app.splasho.R;
 import io.phoenix.app.splasho.container.Tab;
 
-import static io.phoenix.app.splasho.collections.CollectionsContract.Type.ALL;
 import static io.phoenix.app.splasho.collections.CollectionsContract.Type.CURATED;
-import static io.phoenix.app.splasho.collections.CollectionsContract.Type.FEATURED;
 import static io.phoenix.app.splasho.container.ViewPagerContainerFragment.Screen;
 import static io.phoenix.app.splasho.container.ViewPagerContainerFragment.newInstance;
 import static io.phoenix.app.splasho.photos.PhotosContract.OrderBy.LATEST;
-import static io.phoenix.app.splasho.photos.PhotosContract.OrderBy.OLDEST;
-import static io.phoenix.app.splasho.photos.PhotosContract.OrderBy.POPULAR;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -44,15 +40,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private int selectedItem = -1;
 
+    //TODO (12): Remove this after Testing is complete
     private Tab[] photosTabs = new Tab[]{
-            new Tab("Latest", LATEST),
-            new Tab("Popular", POPULAR),
-            new Tab("Oldest", OLDEST)
+            new Tab("Latest", LATEST)
     };
 
     private Tab[] collectionsTabs = new Tab[]{
-            new Tab("All", ALL),
-            new Tab("Featured", FEATURED),
             new Tab("Curated", CURATED)
     };
 
@@ -123,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(mDrawerToggle);
     }
 
+    // TODO (11): Add Settings Fragment
+    // TODO (12): Handle Additional NavBar Menu Items
     private void selectDrawerItem(MenuItem menuItem) {
         if (menuItem.getItemId() != selectedItem) {
             switch (menuItem.getItemId()) {
