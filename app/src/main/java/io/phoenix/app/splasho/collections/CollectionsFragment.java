@@ -21,7 +21,7 @@ import io.phoenix.app.splasho.models.Collection;
 import io.phoenix.app.splasho.util.HTTPUtils;
 
 import static io.phoenix.app.splasho.Splasho.CURRENT_TAB;
-import static io.phoenix.app.splasho.Splasho.NUM_COLUMNS_IN_GRID;
+import static io.phoenix.app.splasho.Splasho.NUM_COLUMNS_STREAM;
 import static io.phoenix.app.splasho.Splasho.VIEW_CACHE_SIZE;
 import static io.phoenix.app.splasho.collections.CollectionsContract.Type.ALL;
 
@@ -72,11 +72,11 @@ public class CollectionsFragment extends Fragment implements CollectionsContract
         mRecyclerView = view.findViewById(R.id.rv_grid);
         mErrorMessage = view.findViewById(R.id.tv_error_message_display);
 
-        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, NUM_COLUMNS_IN_GRID);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, NUM_COLUMNS_STREAM);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        mAdapter = new CollectionsGridAdapter();
+        mAdapter = new CollectionsGridAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemViewCacheSize(VIEW_CACHE_SIZE);
 

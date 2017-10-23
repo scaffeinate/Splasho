@@ -16,7 +16,6 @@ import java.util.List;
 
 import io.phoenix.app.splasho.R;
 import io.phoenix.app.splasho.models.Photo;
-import io.phoenix.app.splasho.models.User;
 import io.phoenix.app.splasho.util.DisplayUtils;
 
 /**
@@ -77,7 +76,6 @@ public class PhotosGridAdapter extends RecyclerView.Adapter<PhotosGridAdapter.Vi
             Photo photo = mPhotos.get(position);
             if (photo != null) {
                 String imageUrl = photo.getUrls().getSmall();
-                User user = photo.getUser();
 
                 int screenHeight = DisplayUtils.getInstance(mActivity).getScreenHeight();
                 int height = (int) (screenHeight / 2.25);
@@ -86,7 +84,7 @@ public class PhotosGridAdapter extends RecyclerView.Adapter<PhotosGridAdapter.Vi
                 mPhotoImageView.setMinimumHeight(height);
 
                 if (imageUrl != null) {
-                    Picasso.with(mPhotoImageView.getContext())
+                    Picasso.with(itemView.getContext())
                             .load(imageUrl)
                             .centerCrop().fit()
                             .into(mPhotoImageView);

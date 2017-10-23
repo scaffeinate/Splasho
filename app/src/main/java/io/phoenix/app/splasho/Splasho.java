@@ -14,5 +14,7 @@ public final class Splasho {
 
     public static final int VIEW_CACHE_SIZE = 35;
 
+    public static final int NUM_COLUMNS_STREAM = 1;
+
     public static final int NUM_COLUMNS_IN_GRID = 2;
 }

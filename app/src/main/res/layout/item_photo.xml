@@ -36,8 +36,7 @@
             android:adjustViewBounds="true"
             android:clickable="true"
             android:foreground="?selectableItemBackground"
-            android:scaleType="fitXY"
-            android:visibility="visible" />
+            android:scaleType="fitXY" />
 
         <RelativeLayout
             android:layout_width="match_parent"
