@@ -11,13 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.phoenix.app.splasho.R;
 import io.phoenix.app.splasho.container.Tab;
-import io.phoenix.app.splasho.data.repositories.collections.CollectionsRepository;
 import io.phoenix.app.splasho.data.models.Collection;
+import io.phoenix.app.splasho.data.repositories.collections.CollectionsRepository;
+import io.phoenix.app.splasho.util.EndlessRecyclerViewScrollListener;
 import io.phoenix.app.splasho.util.HTTPUtils;
 
 import static io.phoenix.app.splasho.Splasho.CURRENT_TAB;
@@ -39,8 +42,14 @@ public class CollectionsFragment extends Fragment implements CollectionsContract
     private ProgressBar mProgressBar;
     private TextView mErrorMessage;
 
+    private RecyclerView.LayoutManager mLayoutManager;
+    private EndlessRecyclerViewScrollListener mScrollListener;
     private CollectionsGridAdapter mAdapter;
     private Tab mTab;
+
+    private List<Collection> mCollections;
+    private int mStartPage = 1;
+    private String mOrderBy;
 
     public static CollectionsFragment newInstance(Tab tab) {
         CollectionsFragment fragment = new CollectionsFragment();
@@ -68,13 +77,24 @@ public class CollectionsFragment extends Fragment implements CollectionsContract
         setRetainInstance(true);
 
         mTab = getArguments().getParcelable(CURRENT_TAB);
+        mOrderBy = (mTab != null) ? mTab.getKey() : ALL;
+
         mProgressBar = view.findViewById(R.id.pb_loading_indicator);
         mRecyclerView = view.findViewById(R.id.rv_grid);
         mErrorMessage = view.findViewById(R.id.tv_error_message_display);
 
-        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, NUM_COLUMNS_STREAM);
+        mCollections = new ArrayList<>();
+
+        mLayoutManager = new GridLayoutManager(mContext, NUM_COLUMNS_STREAM);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
+        mScrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadCollections(page, mOrderBy);
+            }
+        };
+        mRecyclerView.addOnScrollListener(mScrollListener);
 
         mAdapter = new CollectionsGridAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
@@ -86,13 +106,7 @@ public class CollectionsFragment extends Fragment implements CollectionsContract
     @Override
     public void onResume() {
         super.onResume();
-        if (HTTPUtils.isNetworkEnabled(mContext)) {
-            showProgressBar();
-            mPresenter.loadCollections(1, (mTab != null) ? mTab.getKey() : ALL);
-        } else {
-            showErrorMessage();
-            mErrorMessage.setText(mContext.getResources().getString(R.string.unable_to_connect_error_message));
-        }
+        loadCollections(mStartPage, mOrderBy);
     }
 
     @Override
@@ -104,13 +118,37 @@ public class CollectionsFragment extends Fragment implements CollectionsContract
     @Override
     public void onCollectionsLoaded(List<Collection> collections) {
         showRecyclerView();
-        mAdapter.setCollections(collections);
+        mCollections.addAll(collections);
+        mAdapter.setCollections(mCollections);
     }
 
     @Override
     public void onDataNotAvailable(String errorMessage) {
-        showErrorMessage();
-        mErrorMessage.setText(mContext.getResources().getString(R.string.something_went_wrong_error_message));
+        String displayMessage = mContext.getResources().getString(R.string.something_went_wrong_error_message);
+        if (mCollections == null || mCollections.isEmpty()) {
+            showErrorMessage();
+            mErrorMessage.setText(displayMessage);
+        } else {
+            Toast.makeText(mContext, displayMessage, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void loadCollections(int page, String mOrderBy) {
+        Toast.makeText(mContext, "" + page, Toast.LENGTH_SHORT).show();
+        if (HTTPUtils.isNetworkEnabled(mContext)) {
+            if (mCollections == null || mCollections.isEmpty()) {
+                showProgressBar();
+            }
+            mPresenter.loadCollections(page, mOrderBy);
+        } else {
+            String displayMessage = mContext.getResources().getString(R.string.unable_to_connect_error_message);
+            if (mCollections == null || mCollections.isEmpty()) {
+                showErrorMessage();
+                mErrorMessage.setText(displayMessage);
+            } else {
+                Toast.makeText(mContext, displayMessage, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private void showProgressBar() {

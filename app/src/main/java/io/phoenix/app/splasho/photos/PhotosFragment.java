@@ -11,13 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.phoenix.app.splasho.R;
 import io.phoenix.app.splasho.container.Tab;
-import io.phoenix.app.splasho.data.repositories.photos.PhotosRepository;
 import io.phoenix.app.splasho.data.models.Photo;
+import io.phoenix.app.splasho.data.repositories.photos.PhotosRepository;
+import io.phoenix.app.splasho.util.EndlessRecyclerViewScrollListener;
 import io.phoenix.app.splasho.util.HTTPUtils;
 
 import static io.phoenix.app.splasho.Splasho.CURRENT_TAB;
@@ -39,10 +42,19 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     private ProgressBar mProgressBar;
     private TextView mErrorMessage;
 
+    private RecyclerView.LayoutManager mLayoutManager;
+    private EndlessRecyclerViewScrollListener mScrollListener;
     private PhotosGridAdapter mAdapter;
     private Tab mTab;
 
-    // TODO (3): Endless scrolling with RecyclerView
+    private List<Photo> mPhotos;
+    private int mStartPage = 1;
+    private String mOrderBy;
+
+
+    // TODO (5): Retain Tab Key in saveInstance
+    // TODO (6): Fix issue when Network goes back and comes again; Endless Scrolling Fix;
+    // TODO (7): Custom ProgressBar
     public static PhotosFragment newInstance(Tab tab) {
         PhotosFragment fragment = new PhotosFragment();
 
@@ -68,14 +80,25 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
         View view = inflater.inflate(R.layout.fragment_grid, container, false);
 
         mTab = getArguments().getParcelable(CURRENT_TAB);
+        mOrderBy = (mTab != null) ? mTab.getKey() : LATEST;
+
         mProgressBar = view.findViewById(R.id.pb_loading_indicator);
         mRecyclerView = view.findViewById(R.id.rv_grid);
         mErrorMessage = view.findViewById(R.id.tv_error_message_display);
 
-        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, NUM_COLUMNS_IN_GRID);
+        mPhotos = new ArrayList<>();
+
+        mLayoutManager = new GridLayoutManager(mContext, NUM_COLUMNS_IN_GRID);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemViewCacheSize(VIEW_CACHE_SIZE);
         mRecyclerView.setHasFixedSize(true);
+        mScrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadPhotos(page, mOrderBy);
+            }
+        };
+        mRecyclerView.addOnScrollListener(mScrollListener);
 
         return view;
     }
@@ -90,13 +113,7 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        if (HTTPUtils.isNetworkEnabled(mContext)) {
-            showProgressBar();
-            mPresenter.loadPhotos(1, (mTab != null) ? mTab.getKey() : LATEST);
-        } else {
-            showErrorMessage();
-            mErrorMessage.setText(mContext.getResources().getString(R.string.unable_to_connect_error_message));
-        }
+        loadPhotos(mStartPage, mOrderBy);
     }
 
     @Override
@@ -108,13 +125,36 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     @Override
     public void onPhotosLoaded(List<Photo> photos) {
         showRecyclerView();
-        mAdapter.setPhotos(photos);
+        mPhotos.addAll(photos);
+        mAdapter.setPhotos(mPhotos);
     }
 
     @Override
     public void onDataNotAvailable(String errorMessage) {
-        showErrorMessage();
-        mErrorMessage.setText(mContext.getResources().getString(R.string.something_went_wrong_error_message));
+        String displayMessage = mContext.getResources().getString(R.string.something_went_wrong_error_message);
+        if (mPhotos == null || mPhotos.isEmpty()) {
+            showErrorMessage();
+            mErrorMessage.setText(displayMessage);
+        } else {
+            Toast.makeText(mContext, displayMessage, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void loadPhotos(int page, String mOrderBy) {
+        if (HTTPUtils.isNetworkEnabled(mContext)) {
+            if (mPhotos == null || mPhotos.isEmpty()) {
+                showProgressBar();
+            }
+            mPresenter.loadPhotos(page, mOrderBy);
+        } else {
+            String displayMessage = mContext.getResources().getString(R.string.unable_to_connect_error_message);
+            if (mPhotos == null || mPhotos.isEmpty()) {
+                showErrorMessage();
+                mErrorMessage.setText(displayMessage);
+            } else {
+                Toast.makeText(mContext, displayMessage, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private void showProgressBar() {

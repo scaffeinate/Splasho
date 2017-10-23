@@ -22,6 +22,7 @@ import io.phoenix.app.splasho.util.DisplayUtils;
  * Created by sudharti on 10/22/17.
  */
 
+// TODO (8): ProgressBar Footer in the Adapter
 public class PhotosGridAdapter extends RecyclerView.Adapter<PhotosGridAdapter.ViewHolder> {
 
     private List<Photo> mPhotos;
