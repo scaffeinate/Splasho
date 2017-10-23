@@ -15,7 +15,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import io.phoenix.app.splasho.R;
-import io.phoenix.app.splasho.Splasho;
 import io.phoenix.app.splasho.container.Tab;
 import io.phoenix.app.splasho.data.photos.PhotosRepository;
 import io.phoenix.app.splasho.models.Photo;
@@ -56,6 +55,7 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         mContext = getContext();
         mRepository = PhotosRepository.getInstance();
         mPresenter = new PhotosPresenter(this, mRepository);
@@ -66,8 +66,6 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_grid, container, false);
 
-        setRetainInstance(true);
-
         mTab = getArguments().getParcelable(CURRENT_TAB);
         mProgressBar = view.findViewById(R.id.pb_loading_indicator);
         mRecyclerView = view.findViewById(R.id.rv_grid);
@@ -75,13 +73,17 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
 
         GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, NUM_COLUMNS_IN_GRID);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemViewCacheSize(VIEW_CACHE_SIZE);
         mRecyclerView.setHasFixedSize(true);
 
-        mAdapter = new PhotosGridAdapter();
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setItemViewCacheSize(VIEW_CACHE_SIZE);
-
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mAdapter = new PhotosGridAdapter(getActivity());
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override

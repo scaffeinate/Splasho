@@ -57,6 +57,7 @@ public class CuratedFragment extends Fragment implements CuratedContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         mContext = getContext();
         mRepository = PhotosRepository.getInstance();
         mPresenter = new CuratedPresenter(this, mRepository);
@@ -74,13 +75,17 @@ public class CuratedFragment extends Fragment implements CuratedContract.View {
 
         GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, NUM_COLUMNS_IN_GRID);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemViewCacheSize(VIEW_CACHE_SIZE);
         mRecyclerView.setHasFixedSize(true);
 
-        mAdapter = new PhotosGridAdapter();
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setItemViewCacheSize(VIEW_CACHE_SIZE);
-
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mAdapter = new PhotosGridAdapter(getActivity());
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
