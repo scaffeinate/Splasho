@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 import io.phoenix.app.splasho.R;
 import io.phoenix.app.splasho.models.Photo;
+import io.phoenix.app.splasho.models.User;
 import io.phoenix.app.splasho.util.DisplayUtils;
 
 /**
@@ -57,29 +59,38 @@ public class PhotosGridAdapter extends RecyclerView.Adapter<PhotosGridAdapter.Vi
 
         final ImageView mPhotoImageView;
         final RelativeLayout mPlaceholderContainer;
+        final ImageButton mLikeButton;
+        final ImageButton mDownloadButton;
+        final ImageButton mWallpaperButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mPlaceholderContainer = itemView.findViewById(R.id.rl_placeholder_container);
             mPhotoImageView = itemView.findViewById(R.id.iv_photo);
+            mLikeButton = itemView.findViewById(R.id.btn_like);
+            mDownloadButton = itemView.findViewById(R.id.btn_download);
+            mWallpaperButton = itemView.findViewById(R.id.btn_wallpaper);
         }
 
         // TODO (4): Check the size of images downloaded
         private void bind(int position) {
             Photo photo = mPhotos.get(position);
-            String imageUrl = photo.getUrls().getSmall();
+            if (photo != null) {
+                String imageUrl = photo.getUrls().getSmall();
+                User user = photo.getUser();
 
-            int screenHeight = DisplayUtils.getInstance(mActivity).getScreenHeight();
-            int height = (int) (screenHeight / 2.75);
+                int screenHeight = DisplayUtils.getInstance(mActivity).getScreenHeight();
+                int height = (int) (screenHeight / 2.25);
 
-            mPlaceholderContainer.setMinimumHeight(height);
-            mPhotoImageView.setMinimumHeight(height);
+                mPlaceholderContainer.setMinimumHeight(height);
+                mPhotoImageView.setMinimumHeight(height);
 
-            if (imageUrl != null) {
-                Picasso.with(mPhotoImageView.getContext())
-                        .load(imageUrl)
-                        .centerCrop().fit()
-                        .into(mPhotoImageView);
+                if (imageUrl != null) {
+                    Picasso.with(mPhotoImageView.getContext())
+                            .load(imageUrl)
+                            .centerCrop().fit()
+                            .into(mPhotoImageView);
+                }
             }
         }
     }

@@ -18,4 +18,9 @@
 
     <!-- ProgressBar Dimension -->
     <dimen name="pb_size">42dp</dimen>
+
+    <!-- Item Photo Dimensions -->
+    <dimen name="item_photo_actions_padding">10dp</dimen>
+    <dimen name="item_photo_actions_margin">10dp</dimen>
+
 </resources>
