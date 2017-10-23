@@ -64,12 +64,13 @@ public class PhotosGridAdapter extends RecyclerView.Adapter<PhotosGridAdapter.Vi
             mPhotoImageView = itemView.findViewById(R.id.iv_photo);
         }
 
+        // TODO (4): Check the size of images downloaded
         private void bind(int position) {
             Photo photo = mPhotos.get(position);
             String imageUrl = photo.getUrls().getSmall();
 
             int screenHeight = DisplayUtils.getInstance(mActivity).getScreenHeight();
-            int height = (int) (screenHeight / 2.5);
+            int height = (int) (screenHeight / 2.75);
 
             mPlaceholderContainer.setMinimumHeight(height);
             mPhotoImageView.setMinimumHeight(height);

@@ -42,6 +42,7 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     private PhotosGridAdapter mAdapter;
     private Tab mTab;
 
+    // TODO (3): Endless scrolling with RecyclerView
     public static PhotosFragment newInstance(Tab tab) {
         PhotosFragment fragment = new PhotosFragment();
 

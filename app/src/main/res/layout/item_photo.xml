@@ -7,6 +7,7 @@
     card_view:cardElevation="1dp"
     card_view:cardMaxElevation="2dp">
 
+    <!-- TODO (1): Polish layout for Photos -->
     <RelativeLayout
         android:id="@+id/rl_image_container"
         android:layout_width="wrap_content"
