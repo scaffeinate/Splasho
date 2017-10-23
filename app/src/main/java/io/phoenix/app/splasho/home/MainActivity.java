@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private FragmentManager mFragmentManager;
 
-    private int selectedItem = R.id.action_photos;
+    private int selectedItem = -1;
 
     private Tab[] photosTabs = new Tab[]{
             new Tab("Latest", LATEST),
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Menu menu = mNavigationView.getMenu();
         if (menu != null) {
-            onNavigationItemSelected(menu.findItem(selectedItem));
+            onNavigationItemSelected(menu.findItem(R.id.action_photos));
         }
     }
 
@@ -124,32 +124,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void selectDrawerItem(MenuItem menuItem) {
+        if (menuItem.getItemId() != selectedItem) {
+            switch (menuItem.getItemId()) {
+                case R.id.action_photos:
+                    mFragmentManager.beginTransaction()
+                            .replace(R.id.main_content, newInstance(Screen.PHOTOS, photosTabs))
+                            .commit();
+                    break;
+                case R.id.action_curated_photos:
+                    mFragmentManager.beginTransaction()
+                            .replace(R.id.main_content, newInstance(Screen.CURATED_PHOTOS, photosTabs))
+                            .commit();
+                    break;
+                case R.id.action_collections:
+                    mFragmentManager.beginTransaction()
+                            .replace(R.id.main_content, newInstance(Screen.COLLECTIONS, collectionsTabs))
+                            .commit();
+                    break;
+                case R.id.action_settings:
+                    Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                    break;
+            }
 
-        switch (menuItem.getItemId()) {
-            case R.id.action_photos:
-                mFragmentManager.beginTransaction()
-                        .replace(R.id.main_content, newInstance(Screen.PHOTOS, photosTabs))
-                        .commit();
-                break;
-            case R.id.action_curated_photos:
-                mFragmentManager.beginTransaction()
-                        .replace(R.id.main_content, newInstance(Screen.CURATED_PHOTOS, photosTabs))
-                        .commit();
-                break;
-            case R.id.action_collections:
-                mFragmentManager.beginTransaction()
-                        .replace(R.id.main_content, newInstance(Screen.COLLECTIONS, collectionsTabs))
-                        .commit();
-                break;
-            case R.id.action_settings:
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
-                break;
+            menuItem.setChecked(true);
+
+            selectedItem = menuItem.getItemId();
+            setToolbarTitle(menuItem.getTitle().toString());
         }
-
-        menuItem.setChecked(true);
-
-        selectedItem = menuItem.getItemId();
-        setToolbarTitle(menuItem.getTitle().toString());
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
