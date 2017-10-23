@@ -3,27 +3,40 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     card_view:cardElevation="1dp"
     card_view:cardMaxElevation="2dp">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/rl_image_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_placeholder_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/itemGridBg"
+            android:clickable="true"
+            android:foreground="?selectableItemBackground">
+
+            <ImageView
+                android:id="@+id/iv_placeholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_image_filter_hdr_black_48dp" />
+        </RelativeLayout>
 
         <ImageView
-            android:id="@+id/iv_placeholder"
+            android:id="@+id/iv_photo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_image_filter_hdr_black_48dp" />
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:foreground="?selectableItemBackground"
+            android:scaleType="fitXY"
+            android:visibility="visible" />
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/iv_photo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:foreground="?selectableItemBackground"
-        android:visibility="visible" />
 </android.support.v7.widget.CardView>
