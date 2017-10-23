@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.phoenix.app.splasho.R;
-import io.phoenix.app.splasho.models.Photo;
+import io.phoenix.app.splasho.data.models.Photo;
 import io.phoenix.app.splasho.util.DisplayUtils;
 
 /**

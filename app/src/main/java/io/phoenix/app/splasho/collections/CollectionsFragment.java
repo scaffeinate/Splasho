@@ -16,8 +16,8 @@ import java.util.List;
 
 import io.phoenix.app.splasho.R;
 import io.phoenix.app.splasho.container.Tab;
-import io.phoenix.app.splasho.data.collections.CollectionsRepository;
-import io.phoenix.app.splasho.models.Collection;
+import io.phoenix.app.splasho.data.repositories.collections.CollectionsRepository;
+import io.phoenix.app.splasho.data.models.Collection;
 import io.phoenix.app.splasho.util.HTTPUtils;
 
 import static io.phoenix.app.splasho.Splasho.CURRENT_TAB;

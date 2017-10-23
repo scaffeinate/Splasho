@@ -5,7 +5,7 @@ import android.support.annotation.StringDef;
 import java.lang.annotation.Retention;
 import java.util.List;
 
-import io.phoenix.app.splasho.models.Collection;
+import io.phoenix.app.splasho.data.models.Collection;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 

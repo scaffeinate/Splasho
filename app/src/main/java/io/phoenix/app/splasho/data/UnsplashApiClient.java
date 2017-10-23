@@ -2,8 +2,8 @@ package io.phoenix.app.splasho.data;
 
 import java.util.List;
 
-import io.phoenix.app.splasho.models.Collection;
-import io.phoenix.app.splasho.models.Photo;
+import io.phoenix.app.splasho.data.models.Collection;
+import io.phoenix.app.splasho.data.models.Photo;
 import io.phoenix.app.splasho.photos.PhotosContract;
 import okhttp3.HttpUrl;
 import retrofit2.Call;

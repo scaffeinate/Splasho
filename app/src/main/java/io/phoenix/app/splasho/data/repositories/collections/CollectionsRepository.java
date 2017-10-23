@@ -1,4 +1,4 @@
-package io.phoenix.app.splasho.data.collections;
+package io.phoenix.app.splasho.data.repositories.collections;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import io.phoenix.app.splasho.data.Cancellable;
 import io.phoenix.app.splasho.data.UnsplashApiClient;
-import io.phoenix.app.splasho.models.Collection;
+import io.phoenix.app.splasho.data.models.Collection;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

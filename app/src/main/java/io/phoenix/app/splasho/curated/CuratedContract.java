@@ -2,7 +2,7 @@ package io.phoenix.app.splasho.curated;
 
 import java.util.List;
 
-import io.phoenix.app.splasho.models.Photo;
+import io.phoenix.app.splasho.data.models.Photo;
 import io.phoenix.app.splasho.photos.PhotosContract.OrderBy;
 
 /**

@@ -1,5 +1,5 @@
 
-package io.phoenix.app.splasho.models;
+package io.phoenix.app.splasho.data.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

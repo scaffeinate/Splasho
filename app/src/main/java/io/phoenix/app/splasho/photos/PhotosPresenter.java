@@ -5,11 +5,10 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import io.phoenix.app.splasho.data.Cancellable;
-import io.phoenix.app.splasho.data.photos.PhotosDataSource;
-import io.phoenix.app.splasho.data.photos.PhotosRepository;
-import io.phoenix.app.splasho.models.Photo;
+import io.phoenix.app.splasho.data.repositories.photos.PhotosRepository;
+import io.phoenix.app.splasho.data.models.Photo;
 
-import static io.phoenix.app.splasho.data.photos.PhotosDataSource.*;
+import static io.phoenix.app.splasho.data.repositories.photos.PhotosDataSource.*;
 import static io.phoenix.app.splasho.photos.PhotosContract.*;
 
 /**

@@ -6,9 +6,9 @@ import java.util.List;
 
 import io.phoenix.app.splasho.collections.CollectionsContract.Presenter;
 import io.phoenix.app.splasho.data.Cancellable;
-import io.phoenix.app.splasho.data.collections.CollectionsDataSource;
-import io.phoenix.app.splasho.data.collections.CollectionsRepository;
-import io.phoenix.app.splasho.models.Collection;
+import io.phoenix.app.splasho.data.repositories.collections.CollectionsDataSource;
+import io.phoenix.app.splasho.data.repositories.collections.CollectionsRepository;
+import io.phoenix.app.splasho.data.models.Collection;
 
 /**
  * Created by sudharti on 10/22/17.

@@ -5,8 +5,7 @@ import android.support.annotation.StringDef;
 import java.lang.annotation.Retention;
 import java.util.List;
 
-import io.phoenix.app.splasho.data.Cancellable;
-import io.phoenix.app.splasho.models.Photo;
+import io.phoenix.app.splasho.data.models.Photo;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 

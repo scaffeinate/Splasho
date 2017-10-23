@@ -5,12 +5,12 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import io.phoenix.app.splasho.data.Cancellable;
-import io.phoenix.app.splasho.data.photos.PhotosRepository;
-import io.phoenix.app.splasho.models.Photo;
+import io.phoenix.app.splasho.data.repositories.photos.PhotosRepository;
+import io.phoenix.app.splasho.data.models.Photo;
 
 import static io.phoenix.app.splasho.curated.CuratedContract.Presenter;
 import static io.phoenix.app.splasho.curated.CuratedContract.View;
-import static io.phoenix.app.splasho.data.photos.PhotosDataSource.LoadPhotosCallback;
+import static io.phoenix.app.splasho.data.repositories.photos.PhotosDataSource.LoadPhotosCallback;
 
 /**
  * Created by sudharti on 10/22/17.

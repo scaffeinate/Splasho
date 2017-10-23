@@ -1,9 +1,8 @@
-package io.phoenix.app.splasho.data.collections;
+package io.phoenix.app.splasho.data.repositories.collections;
 
 import java.util.List;
 
-import io.phoenix.app.splasho.data.Cancellable;
-import io.phoenix.app.splasho.models.Collection;
+import io.phoenix.app.splasho.data.models.Collection;
 
 import static io.phoenix.app.splasho.collections.CollectionsContract.Type;
 
