@@ -13,6 +13,7 @@ import io.phoenix.app.splasho.R;
  * Created by sudharti on 10/23/17.
  */
 
+// TODO (9): Finish this fragment functionality
 public class PhotoDetailsFragment extends Fragment implements PhotoDetailsContract.View {
     @Nullable
     @Override
