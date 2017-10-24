@@ -68,6 +68,7 @@ public class PhotosFragment extends Fragment implements PhotosContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // TODO (14): Remove this to avoid memory leaks. Used savedInstance to store.
         setRetainInstance(true);
         mContext = getContext();
         mRepository = PhotosRepository.getInstance();

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private int selectedItem = -1;
 
-    //TODO (12): Remove this after Testing is complete
+    //TODO (13): Remove this after Testing is complete
     private Tab[] photosTabs = new Tab[]{
             new Tab("Latest", LATEST)
     };

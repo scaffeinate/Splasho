@@ -134,7 +134,6 @@ public class CollectionsFragment extends Fragment implements CollectionsContract
     }
 
     private void loadCollections(int page, String mOrderBy) {
-        Toast.makeText(mContext, "" + page, Toast.LENGTH_SHORT).show();
         if (HTTPUtils.isNetworkEnabled(mContext)) {
             if (mCollections == null || mCollections.isEmpty()) {
                 showProgressBar();
